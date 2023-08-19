@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: proposed to
+# key: propto
+# --
+
+=PROP= \to ${1:Wem?}
+$0

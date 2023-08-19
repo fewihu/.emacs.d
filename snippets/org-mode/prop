@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: proposed
+# key: prop
+# --
+
+=PROP= ${1:Wem?}
+$0

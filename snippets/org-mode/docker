@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: docker
+# key: <d
+# --
+
+#+NAME: ${1:title}
+#+BEGIN_SRC dockerfile 
+$0
+#+END_SRC

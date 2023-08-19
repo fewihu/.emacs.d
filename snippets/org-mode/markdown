@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: markdown
+# key: <m
+# --
+
+#+NAME: ${1:title}
+#+BEGIN_SRC markdown
+$0
+#+END_SRC

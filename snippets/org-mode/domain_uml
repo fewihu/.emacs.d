@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: (freestyle) Domain-Modell plantuml
+# key: <dmp
+# --
+
+#+NAME: ${1: title}
+#+BEGIN_SRC plantuml :file dia/$1.png
+hide empty methods
+hide empty fields
+hide circle
+left to right direction
+$0
+package Server <<Node>> {
+class "Komponente" as k 
+}
+#+END_SRC

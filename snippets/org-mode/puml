@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: plantuml-src
+# key: <p
+# --
+
+#+NAME: ${1:title}
+#+BEGIN_SRC plantuml :file dia/$1.png
+skinparam dpi 200
+$0
+#+END_SRC

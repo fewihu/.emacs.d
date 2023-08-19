@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: Stundenzettel
+# key: stunden
+# --
+
+#+BEGIN: clocktable :scope file :block today 
+#+END:

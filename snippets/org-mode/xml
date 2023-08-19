@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: xml
+# key: <x
+# --
+
+#+NAME: ${1:title}
+#+BEGIN_SRC xml
+$0
+#+END_SRC
