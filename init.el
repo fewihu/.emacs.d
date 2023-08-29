@@ -150,6 +150,14 @@
 ;; ================================
 ;; helpfull things
 
+
+;; ----------
+;; json support
+(require 'flymake-json)
+(require 'json-mode)
+(global-set-key (kbd "C-c j v") 'flymake-json-load)
+
+
 ;; ----------
 ;; git-commit
 
