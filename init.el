@@ -42,11 +42,11 @@
   ;; as one could guess from the name WINDOWS Terminal App.
   (load-theme 'tango t)
   (set-cursor-color   "#ffffff")
-  (global-display-line-numbers-mode +1))
+  (global-display-line-numbers-mode +1)
+  (scroll-bar-mode -1))
 
 ;; increase SNR
 (menu-bar-mode   -1)
-(scroll-bar-mode -1)
 (tool-bar-mode   -1)
 
 (setq
