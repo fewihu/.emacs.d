@@ -270,7 +270,10 @@ conventions are checked."
       org-startup-folded        t
       org-startup-truncated     nil
       org-fontify-done-headline t
-      org-pretty-entities       t) ;; not sure    
+      org-pretty-entities       t ;; not sure
+      org-edit-src-content-indentation 0
+      org-src-preserve-indentation t)
+
 
 ;; ----------
 ;; keywords
