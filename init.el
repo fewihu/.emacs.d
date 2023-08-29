@@ -17,6 +17,7 @@
       (load-theme 'timu-spacegrey t)
       (set-cursor-color       "#a0a0a0")
       (set-fringe-mode        20)
+      (confirm-kill-emacs      'yes-or-no-p)
       (set-face-attribute 'variable-pitch nil
 			  :font "Iosevka Aile"
 			  :height 140
@@ -73,9 +74,8 @@
 
 (setq  global-auto-revert-non-file-buffers t)
 ;; reduce effects of little oopsies
-(setq
- ring-bell-function                  'ignore 
- confirm-kill-emacs                  'yes-or-no-p)
+(setq ring-bell-function 'ignore)
+
 
 ;; ----------
 ;; hightlighting of parens
