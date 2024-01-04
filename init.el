@@ -5,6 +5,14 @@
 ;; ================================
 ;; look
 
+(defun my-confirm-kill-daemon (prompt)
+  "Ask whether to kill daemon Emacs with PROMPT.
+Intended as a predicate for `confirm-kill-emacs'."
+  (or (not (daemonp))
+      (yes-or-no-p prompt)))
+
+(setq confirm-kill-emacs #'my-confirm-kill-daemon)
+
 (if (display-graphic-p)
     (progn
       ;;used in window system environment
@@ -17,11 +25,6 @@
       (load-theme 'timu-spacegrey t)
       (set-cursor-color       "#a0a0a0")
       (set-fringe-mode        20)
-      (confirm-kill-emacs      'yes-or-no-p)
-      (set-face-attribute 'variable-pitch nil
-			  :font "Iosevka Aile"
-			  :height 140
-			  :weight 'light)
       (add-hook 'org-mode-hook (lambda () (variable-pitch-mode 1)))
       (custom-theme-set-faces 'user
 			      '(org-example ((t (:inherit (shadow fixed-pitch)))))
