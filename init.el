@@ -25,10 +25,6 @@ Intended as a predicate for `confirm-kill-emacs'."
       (load-theme 'timu-spacegrey t)
       (set-cursor-color       "#a0a0a0")
       (set-fringe-mode        20)
-      (set-face-attribute 'variable-pitch nil
-			  :font "Iosevka Aile"
-			  :height 140
-			  :weight 'light)
       (add-hook 'org-mode-hook (lambda () (variable-pitch-mode 1)))
       (custom-theme-set-faces 'user
 			      '(org-example ((t (:inherit (shadow fixed-pitch)))))
