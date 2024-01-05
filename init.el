@@ -273,6 +273,8 @@ conventions are checked."
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
+(setq org-bullets-bullet-list '("●" "◉" "○" "▸" "▹"))
+
 ;; ----------
 ;; basic settings
 (setq org-ellipsis              "⤵"
