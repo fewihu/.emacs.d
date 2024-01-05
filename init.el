@@ -296,19 +296,17 @@ conventions are checked."
 		  (sequence "IDEA(n)"  "DISM(m)" "WAIT(w)")))
 
 (setq org-todo-keyword-faces
-		'(("TODO" :foreground "#ff5733" weigth: bold)
-		  ("CONT" :foreground "#ffc300" weigth: bold)
-		  ("DONE" :foreground "#daf7a6")
-	
-		  ("ISSUE" :foreground "#ff5733" weigth: bold italic)
-		  ("QUEST" :foreground "#cf2703" :background "#2e7388")
-	
-		  ("WAIT" :foreground "#ffc300")
-	
-		  ("IDEA" :foreground "#daf7a6")
-		  ("INFO" :foreground "#aac776" :background "#2e7388")
+		'(("TODO"  :foreground "#ff5733" :background "#003060")
+		  ("CONT"  :foreground "#ffc300" :background "#003060")
+		  ("WAIT"  :foreground "#ffc300" :background "#003060")
+		  ("DONE"  :foreground "#daf7a6" :background "#003060")
+		  ("DISM"  :foreground "#ceffff" :background "#003060")
 		  
-		  ("DISM" :foreground "#ceffff")))
+		  ("ISSUE" :foreground "#ff7033" :background "#401020")
+		  ("QUEST" :foreground "#ff7033" :background "#401020")
+		  ("IDEA"  :foreground "#daf7a6" :background "#401020")
+		  ("INFO"  :foreground "#aac776" :background "#401020")))
+
 
 ;; ----------
 ;; org-babel
