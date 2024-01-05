@@ -312,7 +312,7 @@ conventions are checked."
 ;; org-babel
 
 (org-babel-do-load-languages            
- 'org-babel-load-languages '((plantuml . t)))
+ 'org-babel-load-languages '((plantuml . t) (awk . t) (shell . t)))
 (add-to-list 'org-src-lang-modes '("xml" . nxml-mode))
 
 ;; Don't ask for confirmation to execute snippet code
