@@ -312,6 +312,8 @@ conventions are checked."
       org-edit-src-content-indentation 0
       org-src-preserve-indentation t)
 
+;; continue clock at last clock out
+(setq org-clock-continuously t)
 
 ;; ----------
 ;; keywords
