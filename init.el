@@ -72,6 +72,12 @@ Intended as a predicate for `confirm-kill-emacs'."
 ;; ================================
 ;; feel
 
+;; change "focus" to new split windows
+(global-set-key "\C-x2" (lambda ()
+			  (interactive)(split-window-vertically) (other-window 1)))
+(global-set-key "\C-x3" (lambda ()
+			  (interactive)(split-window-horizontally) (other-window 1)))
+
 (global-auto-revert-mode t)
 (delete-selection-mode   1)
 
