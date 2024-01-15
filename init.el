@@ -157,8 +157,12 @@ Intended as a predicate for `confirm-kill-emacs'."
 
 
 ;; ================================
-;; helpfull things
+;; helpful things
 
+;; ----------
+;; rfc mode
+(require 'rfc-mode)
+(setq rfc-mode-directory (expand-file-name "~/.rfc/"))
 
 ;; ----------
 ;; json support
