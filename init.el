@@ -126,6 +126,7 @@ Intended as a predicate for `confirm-kill-emacs'."
 ;; Golang - seen at: https://geeksocket.in/posts/emacs-lsp-go/
 
 (require 'go-mode)
+(require 'company)
 
 ;; Go - lsp-mode
 ;; Set up before-save hooks to format buffer and add/delete imports.
