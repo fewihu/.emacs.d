@@ -5,14 +5,6 @@
 ;; ================================
 ;; look
 
-(defun my-confirm-kill-daemon (prompt)
-  "Ask whether to kill daemon Emacs with PROMPT.
-Intended as a predicate for `confirm-kill-emacs'."
-  (or (not (daemonp))
-      (yes-or-no-p prompt)))
-
-(setq confirm-kill-emacs #'my-confirm-kill-daemon)
-
 (if (display-graphic-p)
     (progn
       ;;used in window system environment
@@ -77,6 +69,14 @@ Intended as a predicate for `confirm-kill-emacs'."
 			  (interactive)(split-window-vertically) (other-window 1)))
 (global-set-key "\C-x3" (lambda ()
 			  (interactive)(split-window-horizontally) (other-window 1)))
+
+;; make it harder to kill the daemon from client by accident
+(defun my-confirm-kill-daemon (prompt)
+  "Ask whether to kill daemon Emacs with PROMPT.
+Intended as a predicate for `confirm-kill-emacs'."
+  (or (not (daemonp))
+      (yes-or-no-p prompt)))
+(setq confirm-kill-emacs #'my-confirm-kill-daemon)
 
 (global-auto-revert-mode t)
 (delete-selection-mode   1)
