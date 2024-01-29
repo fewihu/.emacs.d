@@ -186,6 +186,11 @@ Intended as a predicate for `confirm-kill-emacs'."
 ;; helpful things
 
 ;; ----------
+;; pass
+(add-to-list 'load-path "~/.emacs.d/pass/")
+(require 'pass)
+
+;; ----------
 ;; rfc mode
 (require 'rfc-mode)
 (setq rfc-mode-directory (expand-file-name "~/.rfc/"))
