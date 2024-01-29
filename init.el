@@ -71,6 +71,14 @@
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
 
+;; switch to previous window (cd - like behaviour)
+;; https://emacs.stackexchange.com/questions/43888/move-to-other-window-backwards
+(defun fm-previous-window ()
+    (interactive)
+    (other-window -1))
+(global-set-key "\C-xp" 'fm-previous-window)
+
+
 ;; change "focus" to new split windows
 (global-set-key "\C-x2" (lambda ()
 			  (interactive)(split-window-vertically) (other-window 1)))
