@@ -50,12 +50,14 @@
  inhibit-startup-screen  t
  global-visual-line-mode t)
 
-
 ;; To have, or not to have line numbers, that is the question
 (dolist (mode '(text-mode-hook
                 prog-mode-hook
                 conf-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 1))))
+  (add-hook mode (lambda ()
+		   (display-line-numbers-mode 1)
+		   (text-scale-set 2)
+		   )))
 
 (dolist (mode '(org-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
