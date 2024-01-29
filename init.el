@@ -324,6 +324,7 @@ conventions are checked."
 ;; ================================
 ;; Org-Mode the initial reason to use Emacs
 
+(setq org-agenda-files (expand-file-name "~/notes/notes.org" ))
 
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
