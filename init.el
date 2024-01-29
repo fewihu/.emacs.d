@@ -175,6 +175,12 @@ Intended as a predicate for `confirm-kill-emacs'."
 ;; xml
 (setq nxml-slash-auto-complete-flag t)
 
+;; ----------
+;; yaml-mode
+(require 'yaml-mode)
+(add-hook 'yaml-mode-hook
+          (lambda ()
+            (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
 
 ;; ================================
 ;; helpful things
