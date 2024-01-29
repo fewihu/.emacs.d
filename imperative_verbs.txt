@@ -5,3 +5,7 @@ merge
 make
 unify
 add
+format
+allow
+fix
+set
