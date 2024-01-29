@@ -343,8 +343,11 @@ conventions are checked."
       org-edit-src-content-indentation 0
       org-src-preserve-indentation t)
 
-;; continue clock at last clock out
-(setq org-clock-continuously t)
+;; clock and pomodoro
+(require 'org-pomodoro)
+(setq org-pomodoro-clock-break t                            ;; also clock in pomodorro breaks, because I use them actively
+      org-clock-continuously t                              ;; continue clock at last clock out
+      org-duration-format (quote h:mm))                     ;; display durations as hours
 
 ;; ----------
 ;; keywords
