@@ -160,6 +160,10 @@ Intended as a predicate for `confirm-kill-emacs'."
 (setq company-minimum-prefix-length 1)
 
 ;; ----------
+;; Python
+(add-hook 'python-mode-hook #'lsp)
+
+;; ----------
 ;; markdown
 (require 'markdown-mode)
 
@@ -352,9 +356,8 @@ conventions are checked."
 
 ;; ----------
 ;; org-babel
-
-(org-babel-do-load-languages            
- 'org-babel-load-languages '((plantuml . t) (awk . t) (shell . t)))
+(org-babel-do-load-languages
+ 'org-babel-load-languages '((plantuml . t) (awk . t) (shell . t) (python . t)))
 (add-to-list 'org-src-lang-modes '("xml" . nxml-mode))
 
 ;; Don't ask for confirmation to execute snippet code
