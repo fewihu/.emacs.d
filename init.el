@@ -324,7 +324,18 @@ conventions are checked."
 ;; ================================
 ;; Org-Mode the initial reason to use Emacs
 
+(global-set-key (kbd "C-x C-a") 'org-agenda)
 (setq org-agenda-files (expand-file-name "~/notes/notes.org" ))
+(setq org-agenda-custom-commands
+      '(("w" "Weekly review"
+	 ((agenda ""
+		  ((org-agenda-span 8)
+		   (org-agenda-start-day "-7d")
+		   (org-agenda-start-with-log-mode '(closed clock state))
+		   (org-agenda-show-log t)))))))
+		   ;; (org-agenda-start-with-log-mode t)
+		   ;; (org-agenda-log-mode-items '(clock))))))))
+
 
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
