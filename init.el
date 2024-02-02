@@ -336,12 +336,60 @@ conventions are checked."
 (setq org-agenda-custom-commands
       '(("w" "Weekly review"
 	 ((agenda ""
-		  ((org-agenda-span 8)
-		   (org-agenda-start-day "-7d")
+		  ((org-agenda-span 32)
+		   (org-agenda-start-day "-1m")
 		   (org-agenda-start-with-log-mode '(closed clock state))
+		   (org-agenda-start-with-clock-check-mode)
 		   (org-agenda-show-log t)))))))
 		   ;; (org-agenda-start-with-log-mode t)
 		   ;; (org-agenda-log-mode-items '(clock))))))))
+
+(defun fm-timesheet()
+    (interactive)
+    (org-agenda nil "w"))
+
+
+;;
+(require 'cl-lib)
+(require 'org-clock)
+(defun org-dblock-write:work-report (params)
+  "Calculate how many hours too many or too few I have worked. PARAMS are
+defined in the template, they are :tstart for the first day for which there's
+data (e.g. <2022-01-01>) and :tend for the last date (e.g. <now>)."
+  ;; cl-flet is a macro from the common lisp emulation package that allows us to
+  ;; bind functions, just like let allows us to do with values.
+  (cl-flet*
+      ((format-time (time) (format-time-string
+                            (org-time-stamp-format tm tm) time))
+       (get-minutes-from-log (t1 t2) (cl-second
+				      (org-clock-get-table-data
+				       (buffer-file-name)
+				       (list :maxlevel 0
+					     :tstart (format-time t1)
+					     :tend (format-time t2))))))
+    (let* ((start
+            (seconds-to-time (org-matcher-time (plist-get params :tstart))))
+           (end
+            (seconds-to-time (org-matcher-time (plist-get params :tend))))
+           (tm start)
+           (total-days-worked 0))
+      (progn
+        ;; loop through all the days in the time frame provided and count how
+        ;; many days minutes were reported.
+        (while (time-less-p tm end)
+          (let* ((next-day (time-add tm (date-to-time "1970-01-02T00:00Z")))
+                 (minutes-in-day (get-minutes-from-log tm next-day)))
+            (if (> minutes-in-day 0) (cl-incf total-days-worked 1))
+            (setq tm next-day)))
+        ;; now we can just do some simple arithmetic to get the difference
+        ;; between hours ideally worked and hours actually worked.
+        (let* ((total-minutes-worked (get-minutes-from-log start end))
+               (hours-worked (/ total-minutes-worked 60.0))
+               (hours-per-workday 8)
+               (hours-should-work (* total-days-worked hours-per-workday))
+               (hour-difference (- hours-worked hours-should-work)))
+          (insert (format "%0.1f" hour-difference)))))))
+;;
 
 
 (require 'org-bullets)
