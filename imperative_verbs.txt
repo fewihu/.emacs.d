@@ -9,3 +9,5 @@ format
 allow
 fix
 set
+remove
+open
