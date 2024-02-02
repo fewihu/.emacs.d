@@ -411,9 +411,10 @@ data (e.g. <2022-01-01>) and :tend for the last date (e.g. <now>)."
 
 ;; clock and pomodoro
 (require 'org-pomodoro)
-(setq org-pomodoro-clock-break t                            ;; also clock in pomodorro breaks, because I use them actively
-      org-clock-continuously t                              ;; continue clock at last clock out
-      org-duration-format (quote h:mm))                     ;; display durations as hours
+(setq org-pomodoro-clock-break t) ;; also clock in pomodorro breaks, because I use them actively
+(setq org-clock-continuously t
+      org-duration-format (quote h:mm)
+      org-log-note-clock-out t)
 
 ;; ----------
 ;; keywords
