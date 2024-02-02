@@ -50,6 +50,11 @@
  inhibit-startup-screen  t
  global-visual-line-mode t)
 
+(customize-set-variable 'org-blank-before-new-entry
+			'((heading . t) (plain-list-item . nil)))
+(setq org-cycle-separator-lines 1)
+
+
 ;; To have, or not to have line numbers, that is the question
 (dolist (mode '(text-mode-hook
                 prog-mode-hook
