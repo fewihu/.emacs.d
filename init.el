@@ -67,10 +67,24 @@
 (dolist (mode '(org-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
+;; highlight indentation where it is helpful
+(require 'highlight-indentation)
+(set-face-background 'highlight-indentation-face "#e3e3d3")
+(set-face-background 'highlight-indentation-current-column-face "#202020")
+(setq highlight-indentation-blank-lines t)
 
+(add-hook 'python-mode-hook #'highlight-indentation-mode)
+(add-hook 'python-mode-hook #'highlight-indentation-current-column-mode)
+(add-hook 'yaml-mode-hook #'highlight-indentation-mode)
+(add-hook 'yaml-mode-hook #'highlight-indentation-mode)
 ;; ================================
 ;; feel
 
+(require 'company)
+(add-hook 'python-mode-hook
+          '(lambda ()
+             (set (make-local-variable 'company-backends)
+                  '(...))))
 ;; sensefull key-bindings to size windows
 ;; https://www.emacswiki.org/emacs/WindowResize
 (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
@@ -191,6 +205,33 @@ Intended as a predicate for `confirm-kill-emacs'."
 
 ;; ================================
 ;; helpful things
+
+;; --- k8s manifests ---
+;; flymake k8s manifests
+
+(require 'flycheck)
+(flycheck-define-checker k8s
+  "A k8s manifest syntax checker using kubeconform"
+  :command ("/usr/local/bin/kc-wrapper")
+  :standard-input t
+  :error-patterns (
+		   (error line-start "line: " line " stdin - " (message) line-end)
+		   (error line-start "stdin - failed validation: error unmarshalling resource: error converting YAML to JSON: yaml: line " line ": " (message) line-end))
+  :modes yaml-mode)
+(add-to-list 'flycheck-checkers 'k8s)
+
+;; k8s company yasnippet
+(add-hook 'yaml-mode-hook
+          '(lambda ()
+             (set (make-local-variable 'company-backends)
+                  '(company-yasnippet))))
+
+(defun fm-k8s-mode()
+  (interactive)
+  (set (make-local-variable 'company-backends)
+       '(company-yasnippet))
+  (company-mode)
+  (flycheck-mode ))
 
 ;; ----------
 ;; pass

@@ -1,0 +1,27 @@
+# -*- mode: yaml-mode -*-
+# name: k8s network policy
+# key: knwp
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
+# --
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: ${1:policy-name}
+  namespace: ${2:policy-namespace}
+spec:
+  podSelector:
+    matchLabels:
+      ${3:key}: ${4:value}
+  policyTypes:
+  ${5:- Ingress}
+  ${6:- Egress}
+  ${7:ingress/egress}:
+  - ${8:from/to}:
+    - ipBlock:
+        cidr: ${9:cidr}
+    - ${10:namespaceSelector/podSelector}:
+        matchLabels:
+          ${11:key}: ${12:value}
+    ports:
+    - protocol: ${13:protocol}
+      port: ${14:port}

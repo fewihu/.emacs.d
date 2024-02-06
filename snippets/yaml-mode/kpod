@@ -1,0 +1,16 @@
+# -*- mode: yaml -*-
+# name: k8s pod descriptor
+# key: kpod
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
+# --
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ${1:pod-name}
+spec:
+  containers:
+  - name: ${2:container-name}
+    image: ${3:image-name}:${4:image-tag}
+    ports:
+    - containerPort: ${5:port}
+$0

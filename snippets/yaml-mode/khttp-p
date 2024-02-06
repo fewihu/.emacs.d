@@ -1,0 +1,11 @@
+# -*- mode: yaml-mode -*-
+# name: k8s http probe
+# key: khttp-p
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
+# --
+httpGet:
+  path: ${1:path}
+  port: ${2:port}
+failureThreshold: ${3:failure-threshold}
+periodSeconds: ${4:period-in-sec}
+initialDelaySeconds: ${5:delay-in-sec}

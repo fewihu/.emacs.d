@@ -1,0 +1,11 @@
+# -*- mode: yaml-mode -*-
+# name: k8s create env
+# key: kenv
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
+# --
+env:
+- name: ${1:env-var-name}
+  valueFrom:
+    ${2:configMapKeyRef or secretKeyRef}
+      name: ${3:name of configMap or secret}
+      key: ${4:key in the map}

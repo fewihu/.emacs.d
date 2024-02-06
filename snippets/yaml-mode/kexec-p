@@ -1,0 +1,10 @@
+# -*- mode: yaml-mode -*-
+# name: k8s exec probe
+# key: kexec-p
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
+# --
+exec:
+  command: [${1:command}]
+   initialDelaySeconds: ${2:delay-in-sec}
+   periodSeconds: ${3:period-in-sec}
+   failureThreshold: ${4:failure-threshold}
