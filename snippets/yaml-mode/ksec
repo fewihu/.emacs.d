@@ -1,0 +1,11 @@
+# -*- mode: yaml-mode -*-
+# name: k8s secret
+# key: ksec
+
+# --
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ${1:name}
+data:
+  ${2:key}: ${3:value}

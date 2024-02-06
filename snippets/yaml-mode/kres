@@ -1,0 +1,12 @@
+# -*- mode: yaml-mode -*-
+# name: k8s create resource
+# key: kres
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
+# --
+resources:
+  reuests:
+    cpu: "${1:cpu-in-millis}m"
+    memory: "${2:mem-in-Mi}Mi"
+  limits:
+    cpu: "${3:cpu-in-millis}m"
+    memory: "${4:mem-in-Mi}Mi"

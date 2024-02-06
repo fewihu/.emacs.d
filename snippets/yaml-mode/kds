@@ -1,0 +1,22 @@
+# -*- mode: yaml-mode -*-
+# name: k8s daemon set
+# key: kds
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
+# --
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: ${1:daemon-set-name}
+  namespace: ${2:daemon-set-namespace}
+spec:
+  selector:
+    matchLabels:
+      app: ${3:associated-pods}
+  template:
+    metadata:
+      labels:
+        app: ${3}
+    spec:
+      containers:
+      - name: ${4:container-name}
+        image:${5:image-name}:${image-tag}

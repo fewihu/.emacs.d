@@ -1,0 +1,26 @@
+# -*- mode: yaml-mode -*-
+# name: k8s deployment
+# key: kdep
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
+# --
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${1:deployment-name}
+  labels:
+    ${2:labels}
+spec:
+  replicas: ${3:number-replicas} 
+  selector:
+    matchLabels:
+      ${4:match-labels}
+  template:
+    metadata:
+      labels:
+        ${5:pod-template-labels}
+    spec:
+      containers:
+      - name: ${6:container-name}
+        image: ${7:image-name}:${8:image-tag}
+        ports:
+        - containerPort: ${9:port}

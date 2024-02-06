@@ -1,0 +1,12 @@
+# -*- mode: yaml-mode -*-
+# name: k8s service account
+# key: ksa
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
+# --
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ${1:service-account-name}
+  namespace: ${2:service-account-namespace}
+  annotations:
+    kubernetes.io/enforce-mountable-secrets: ${3:"true" or "false"}

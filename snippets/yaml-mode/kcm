@@ -1,0 +1,12 @@
+# -*- mode: yaml-mode -*-
+# name: k8s config map
+# key: kcm
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
+# --
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ${1:config-map-name}
+data:
+  # remember multiline properties, are done with | ...
+  ${2:key}: ${3:value}

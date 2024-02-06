@@ -1,0 +1,18 @@
+# -*- mode: yaml -*-
+# name: k8s role binding
+# key: krb
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
+# --
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ${1:role-binding-name}
+  namespace: ${2:role-binding-namespace}
+subjects:
+- kind: User
+  name: ${3:user-name}
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ${4:Role-or-ClusterRole}
+  name: ${5:role-name}
+  apiGroup: rbac.authorization.k8s.io
