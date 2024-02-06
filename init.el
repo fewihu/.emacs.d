@@ -5,41 +5,29 @@
 ;; ================================
 ;; look
 
-(if (display-graphic-p)
-    (progn
-      ;;used in window system environment
-      (customize-set-variable 'timu-spacegrey-org-intense-colors nil)
-      (customize-set-variable 'timu-spacegrey-muted-colors       t)
-      (customize-set-variable 'timu-spacegrey-scale-org-level-1  1.3)
-      (customize-set-variable 'timu-spacegrey-scale-org-level-2  1.2)
-      (customize-set-variable 'timu-spacegrey-scale-org-level-3  1.1)
-      (customize-set-variable 'timu-spacegrey-mode-line-border   t)
-      (load-theme 'timu-spacegrey t)
-      (set-cursor-color       "#a0a0a0")
-      (set-fringe-mode        20)
-      (add-hook 'org-mode-hook (lambda () (variable-pitch-mode 1)))
-      (custom-theme-set-faces 'user
-			      '(org-example ((t (:inherit (shadow fixed-pitch)))))
-			      '(org-babel ((t (:inherit (shadow fixed-pitch)))))
-			      '(org-block ((t (:inherit fixed-pitch))))
-			      '(org-code ((t (:inherit (shadow fixed-pitch)))))
-			      '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
-			      '(org-link ((t (:foreground "royal blue" :underline t))))
-			      '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
-			      '(org-property-value ((t (:inherit fixed-pitch))) t)
-			      '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
-			      '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
-			      '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
-			      '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
-      (setq org-src-fontify          t
-	    org-src-fontify-natively t))
-  ;; used in terminal environment
-  ;; This is necessary because the Windows Terminal App behaves strange,
-  ;; as one could guess from the name WINDOWS Terminal App.
-  (load-theme 'tango t)
-  (set-cursor-color   "#ffffff")
-  (global-display-line-numbers-mode +1)
-  (scroll-bar-mode -1))
+(customize-set-variable 'timu-spacegrey-org-intense-colors nil)
+(customize-set-variable 'timu-spacegrey-muted-colors       nil)
+(customize-set-variable 'timu-spacegrey-scale-org-level-1  1.2)
+(customize-set-variable 'timu-spacegrey-scale-org-level-2  1.1)
+(customize-set-variable 'timu-spacegrey-scale-org-level-3  1.05)
+(customize-set-variable 'timu-spacegrey-mode-line-border   t)
+(load-theme 'timu-spacegrey t)
+(set-cursor-color       "#a0a0a0")
+(set-fringe-mode        20)
+(add-hook 'org-mode-hook (lambda () (variable-pitch-mode 1)))
+(custom-theme-set-faces 'user
+			'(org-example ((t (:inherit (fixed-pitch)))))
+			'(org-babel ((t (:inherit (fixed-pitch)))))
+			'(org-block ((t (:inherit fixed-pitch))))
+			'(org-code ((t (:inherit (fixed-pitch)))))
+			'(org-indent ((t (:inherit (org-hide fixed-pitch)))))
+			'(org-link ((t (:foreground "royal blue" :underline t))))
+			'(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+			'(org-property-value ((t (:inherit fixed-pitch))) t)
+			'(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+			'(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
+			'(org-tag ((t (:inherit (fixed-pitch) :weight light :height 0.4))))
+			'(org-verbatim ((t (:inherit (fixed-pitch) :foreground "maroon" )))))
 
 ;; increase SNR
 (menu-bar-mode   -1)
@@ -53,6 +41,9 @@
 (customize-set-variable 'org-blank-before-new-entry
 			'((heading . t) (plain-list-item . nil)))
 (setq org-cycle-separator-lines 1)
+
+(setq org-src-fontify          t
+      org-src-fontify-natively t)
 
 
 ;; To have, or not to have line numbers, that is the question
