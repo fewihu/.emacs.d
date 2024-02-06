@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: bash
-# key: <b
+# key: >b
 # --
 
 #+NAME: ${1:title}
