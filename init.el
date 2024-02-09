@@ -79,10 +79,6 @@
 ;; feel
 
 (require 'company)
-(add-hook 'python-mode-hook
-          '(lambda ()
-             (set (make-local-variable 'company-backends)
-                  '(...))))
 ;; sensefull key-bindings to size windows
 ;; https://www.emacswiki.org/emacs/WindowResize
 (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
