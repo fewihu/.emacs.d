@@ -153,6 +153,11 @@ Intended as a predicate for `confirm-kill-emacs'."
 ;; programming / mark up languages
 
 ;; ----------
+;; lsp-mode
+(require 'lsp-mode)
+(define-key lsp-mode-map (kbd "C-SPC") lsp-command-map)
+
+;; ----------
 ;; Golang - seen at: https://geeksocket.in/posts/emacs-lsp-go/
 
 (require 'go-mode)
