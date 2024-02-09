@@ -68,6 +68,13 @@
 (add-hook 'python-mode-hook #'highlight-indentation-current-column-mode)
 (add-hook 'yaml-mode-hook #'highlight-indentation-mode)
 (add-hook 'yaml-mode-hook #'highlight-indentation-mode)
+
+;; highlight todos / mark where it is helpful
+(require 'hl-todo)
+(setq hl-todo-keyword-faces
+      '(("TODO"   . "#FF0000")
+        ("MARK"   . "#1E90FF")))
+  (add-hook 'prog-mode-hook 'hl-todo-mode)
 ;; ================================
 ;; feel
 
