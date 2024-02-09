@@ -11,3 +11,9 @@ fix
 set
 remove
 open
+apply
+provide
+use
+highlight
+change
+move
