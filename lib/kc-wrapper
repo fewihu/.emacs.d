@@ -1,0 +1,34 @@
+#! /bin/bash
+
+input=$(</dev/stdin)
+
+error=$(echo "$input" | kubeconform --strict)
+
+if [ $? -eq 0 ]
+then
+    exit 0
+fi
+
+path=$(echo $error | grep -Eo "'(/[[:alnum:]]+)+'"  | head -1 | tr -d "'" | grep -Eo "(/[[:alpha:]][[:alnum:]]+)+" | tr '/' ':')
+echo debug
+echo $path
+
+set -f                      # avoid globbing (expansion of *).
+array=(${path//:/ })
+echo "$input" | tr -d ' ' > rest
+initLength=$(wc -l rest | cut -d ' ' -f-1)
+for i in "${!array[@]}"
+do
+#    echo "sachen: ${array[i]}"
+    cat rest | awk -v pattern=${array[i]} '$0~pattern,0' > rest2
+    mv rest2 rest
+done
+
+restLength=$(wc -l rest | cut -d ' ' -f-1)
+rm -f rest rest2
+#cat daemon-set.yaml | tr -d ' ' | awk '/spec/,0' | awk '/template/,0' | wc
+let line=$initLength-$restLength+1
+echo -n "line: $line "
+echo $error
+
+exit 1

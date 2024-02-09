@@ -209,9 +209,10 @@ Intended as a predicate for `confirm-kill-emacs'."
 ;; flymake k8s manifests
 
 (require 'flycheck)
+(setq fm-kc-wrapper (expand-file-name "~/.emacs.d/lib/kc-wrapper"))
 (flycheck-define-checker k8s
   "A k8s manifest syntax checker using kubeconform"
-  :command ("/usr/local/bin/kc-wrapper")
+  :command ("~/.emacs.d/lib/kc-wrapper")
   :standard-input t
   :error-patterns (
 		   (error line-start "line: " line " stdin - " (message) line-end)
