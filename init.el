@@ -4,15 +4,12 @@
 
 ;; ================================
 ;; look
+(load-theme 'solarized-dark t)
+(setq solarized-use-less-bold t
+      solarized-emphasize-indicators t
+      solarized-use-variable-pitch nil)
 
-(customize-set-variable 'timu-spacegrey-org-intense-colors nil)
-(customize-set-variable 'timu-spacegrey-muted-colors       nil)
-(customize-set-variable 'timu-spacegrey-scale-org-level-1  1.2)
-(customize-set-variable 'timu-spacegrey-scale-org-level-2  1.1)
-(customize-set-variable 'timu-spacegrey-scale-org-level-3  1.05)
-(customize-set-variable 'timu-spacegrey-mode-line-border   t)
-(load-theme 'timu-spacegrey t)
-(set-cursor-color       "#a0a0a0")
+(set-cursor-color       "#e08020")
 (set-fringe-mode        20)
 (add-hook 'org-mode-hook (lambda () (variable-pitch-mode 1)))
 (custom-theme-set-faces 'user
@@ -26,7 +23,7 @@
 			'(org-property-value ((t (:inherit fixed-pitch))) t)
 			'(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
 			'(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
-			'(org-tag ((t (:inherit (fixed-pitch) :weight light :height 0.4))))
+			'(org-tag ((t (:inherit (fixed-pitch) :weight light :height 0.6))))
 			'(org-verbatim ((t (:inherit (fixed-pitch) :foreground "maroon" )))))
 
 ;; increase SNR
