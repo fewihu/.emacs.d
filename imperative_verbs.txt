@@ -17,3 +17,12 @@ use
 highlight
 change
 move
+update
+alias
+avoid
+adapt
+test
+replace
+pass
+document
+increase
