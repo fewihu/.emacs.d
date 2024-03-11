@@ -251,6 +251,8 @@ Intended as a predicate for `confirm-kill-emacs'."
 ;; git-commit
 
 (require 'git-commit)
+(add-hook 'git-commit-setup-hook
+	  'git-commit-turn-on-flyspell)
 (setq git-commit-style-convention-checks
       '(non-empty-second-line
         overlong-summary-line))
@@ -327,6 +329,7 @@ conventions are checked."
 
 (when (eq system-type 'gnu/linux)
   (require 'flyspell)
+  (setq ispell-dictionary "english")
   (add-hook 'text-mode-hook 'flyspell-mode)
   (add-hook 'prog-mode-hook 'flyspell-prog-mode)
   ;; seen at https://tex.stackexchange.com/questions/166681/changing-language-of-flyspell-emacs-with-a-shortcut
