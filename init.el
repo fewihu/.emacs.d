@@ -158,6 +158,10 @@ Intended as a predicate for `confirm-kill-emacs'."
 ;; programming / mark up languages
 
 ;; ----------
+;; systemd
+(require 'systemd)
+
+;; ----------
 ;; lsp-mode
 (require 'lsp-mode)
 (define-key lsp-mode-map (kbd "M-SPC") lsp-command-map)
