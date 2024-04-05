@@ -1,0 +1,18 @@
+# -*- mode: yaml -*-
+# name: k8s node port service
+# key: kndp
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
+# --
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${1:service-name}
+spec:
+  type: NodePort
+  selector:
+    app: ${2:app-name}
+  ports:
+    - port: ${3:service-port}
+      targetPort: ${4:backend-port}
+      nodePort: ${5:node-port}
+$0

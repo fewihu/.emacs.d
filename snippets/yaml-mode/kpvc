@@ -1,0 +1,17 @@
+# -*- mode: yaml -*-
+# name: k8s persistent volume claim
+# key: kpvc
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
+# --
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ${1:persistent-volume-claim-name}
+spec:
+  storageClassName: ${2:storage-class-reference}
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: ${3:size}Mi
+$0

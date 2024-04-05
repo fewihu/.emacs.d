@@ -1,0 +1,12 @@
+# -*- mode: yaml -*-
+# name: k8s storage class
+# key: kstc
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
+# --
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ${1:storage-class}
+provisioner: kubernetes.io/no-provisioner
+allowVolumeExpansion: ${2:false}
+$0

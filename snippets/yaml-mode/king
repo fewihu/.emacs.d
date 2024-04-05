@@ -1,0 +1,21 @@
+# -*- mode: yaml -*-
+# name: k8s ingress
+# key: king
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
+# --
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ${1:ingress-name}
+spec:
+  rules: 
+  - http:
+    paths:
+    - path: ${2:/somepath}
+      pathType: Prefix
+      backend:
+        Service:
+          name: ${3:backend-service}
+          port:
+            number: ${4:backend-port}
+$0

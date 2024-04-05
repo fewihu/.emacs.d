@@ -1,0 +1,9 @@
+# -*- mode: yaml -*-
+# name: k8s volume mount
+# key: kvolm
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
+# --
+volumeMounts:
+- mountPath: ${1:mount-path}
+  name: ${2:volume-reference}
+$0

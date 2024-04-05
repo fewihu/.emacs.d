@@ -1,0 +1,18 @@
+# -*- mode: yaml -*-
+# name: k8s persistent volume
+# key: kpv
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
+# --
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ${1:persistent-volume-name}
+spec:
+  storageClassName: ${2:storage-class-reference}
+  capacity:
+    storage: ${3:size}Gi
+  accessModes:
+  - ReadWriteOnce
+  hostPath:
+    path: ${4:storage-path}
+$0

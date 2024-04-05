@@ -1,0 +1,18 @@
+# -*- mode: yaml -*-
+# name: k8s cluster ip service
+# key: kcip
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
+# --
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${1:service-name}
+spec:
+  type: ClusterIp
+  selector:
+    app: ${2:app-name}
+  ports:
+  - protocoll: TCP
+    port: ${3:service-port}
+    targetPort: ${4:backend-port}
+$0
