@@ -4,7 +4,7 @@
 
 ;; ================================
 ;; look
-(load-theme 'solarized-dark t)
+(load-theme 'solarized-light t)
 (setq solarized-use-less-bold t
       solarized-emphasize-indicators t
       solarized-use-variable-pitch nil)
