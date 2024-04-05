@@ -2,7 +2,7 @@
 
 input=$(</dev/stdin)
 
-error=$(echo "$input" | kubeconform --strict)
+error=$(echo "$input" | /home/felixmueller/go/bin/kubeconform --strict)
 
 if [ $? -eq 0 ]
 then
