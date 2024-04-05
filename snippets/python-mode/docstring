@@ -1,0 +1,18 @@
+# -*- mode: snippet -*-
+# name: docstring
+# key: docstr
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
+# --
+"""$1
+
+    $2
+
+Args:
+    $3 \($4\): $5
+
+Returns:
+    $6: $7
+
+Raises:
+    $8: $9
+"""
