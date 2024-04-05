@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: go-babel
+# key: >g
+# --
+
+#+begin_src go
+
+#+end_src

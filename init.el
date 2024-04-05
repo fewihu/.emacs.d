@@ -476,8 +476,11 @@ data (e.g. <2022-01-01>) and :tend for the last date (e.g. <now>)."
 
 ;; ----------
 ;; org-babel
+(add-to-list 'load-path "~/.emacs.d/ob-go/")
+(require 'ob-go)
 (org-babel-do-load-languages
- 'org-babel-load-languages '((plantuml . t) (awk . t) (shell . t) (python . t)))
+ 'org-babel-load-languages '((plantuml . t) (awk . t) (shell . t) (python . t) (go . t)))
+;;
 (add-to-list 'org-src-lang-modes '("xml" . nxml-mode))
 
 ;; Don't ask for confirmation to execute snippet code
