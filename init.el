@@ -337,15 +337,16 @@ conventions are checked."
 ;; ----------
 ;; flyspell
 
-(when (eq system-type 'gnu/linux)
-  (require 'flyspell)
-  (add-hook 'text-mode-hook 'flyspell-mode)
-  (add-hook 'prog-mode-hook 'flyspell-prog-mode)
-  ;; seen at https://tex.stackexchange.com/questions/166681/changing-language-of-flyspell-emacs-with-a-shortcut
-  (global-set-key [f3] (lambda () (interactive)
-			 (ispell-change-dictionary "deutsch")))
-  (global-set-key [f4] (lambda () (interactive)
-			 (ispell-change-dictionary "english"))))
+
+(require 'flyspell)
+(setq ispell-dictionary "english")
+(add-hook 'text-mode-hook 'flyspell-mode)
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+;; seen at https://tex.stackexchange.com/questions/166681/changing-language-of-flyspell-emacs-with-a-shortcut
+(global-set-key [f3] (lambda () (interactive)
+		       (ispell-change-dictionary "deutsch")))
+(global-set-key [f4] (lambda () (interactive)
+		       (ispell-change-dictionary "english")))
 
 
 ;; ----------
