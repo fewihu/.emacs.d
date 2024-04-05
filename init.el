@@ -145,6 +145,14 @@ Intended as a predicate for `confirm-kill-emacs'."
       auto-save-file-name-transforms  `((".*", laf-dir-emacs t))
       delete-old-versions             t)
 
+;; ----------
+;; translator
+(require 'google-translate)
+(require 'google-translate-default-ui)
+(defun google-translate--search-tkk ()
+  "Search TKK."
+  (list 430675 2721866130))
+(setq google-translate-backend-method 'curl)
 
 ;; ================================
 ;; programming / mark up languages
