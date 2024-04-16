@@ -185,6 +185,29 @@ Intended as a predicate for `confirm-kill-emacs'."
 (add-hook 'go-mode-hook #'lsp-deferred)
 (add-hook 'go-mode-hook #'yas-minor-mode) ;; is this necessary? yasnippet is active anyways
 
+;; add revive flycheck
+(flycheck-define-checker go-revive
+  "A golang code style checker using the revive."
+  :command ("/home/felixmueller/go/bin/revive"  source)
+  :error-patterns
+  ((warning line-start (file-name) ":"line ":" (message) line-end))
+  :modes go-mode
+  )
+(add-to-list 'flycheck-checkers 'go-revive)
+
+;; inject revive flychecker before the default lsp checker
+;; seen at https://github.com/flycheck/flycheck/issues/1762#issuecomment-750458442
+(defvar-local my/flycheck-local-cache nil)
+
+(defun my/flycheck-checker-get (fn checker property)
+  (or (alist-get property (alist-get checker my/flycheck-local-cache))
+      (funcall fn checker property)))
+
+(advice-add 'flycheck-checker-get :around 'my/flycheck-checker-get)
+(add-hook 'lsp-managed-mode-hook
+	  (lambda ()
+	    (when (derived-mode-p 'go-mode)
+	      (setq my/flycheck-local-cache '((lsp . ((next-checkers . (warning go-revive)))))))))
 
 ;; Company mode
 (setq company-idle-delay 0)
