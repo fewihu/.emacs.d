@@ -170,6 +170,8 @@ Intended as a predicate for `confirm-kill-emacs'."
 ;; Golang - seen at: https://geeksocket.in/posts/emacs-lsp-go/
 
 (require 'go-mode)
+(setenv "PATH" (concat (getenv "PATH") ":/usr/local/go/bin"))
+
 (require 'company)
 
 ;; Go - lsp-mode
