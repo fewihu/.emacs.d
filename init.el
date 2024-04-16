@@ -424,6 +424,8 @@ conventions are checked."
     (interactive)
     (org-agenda nil "w"))
 
+;; individually size every image via attr
+(setq org-image-actual-width nil)
 
 ;;
 (require 'cl-lib)
