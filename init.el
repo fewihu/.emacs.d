@@ -154,12 +154,12 @@ Intended as a predicate for `confirm-kill-emacs'."
   (list 430675 2721866130))
 (setq google-translate-backend-method 'curl)
 
-;; ================================
-;; programming / mark up languages
+;;  =============================================
+;; || programming languages / mark up languages ||
+;;  =============================================
 
-;; ----------
-;; systemd
-(require 'systemd)
+;; ================================
+;; general settings
 
 ;; ----------
 ;; lsp-mode
@@ -167,12 +167,26 @@ Intended as a predicate for `confirm-kill-emacs'."
 (define-key lsp-mode-map (kbd "M-SPC") lsp-command-map)
 
 ;; ----------
-;; Golang - seen at: https://geeksocket.in/posts/emacs-lsp-go/
+;; Company mode
+(require 'company)
+(setq company-idle-delay 0)
+(setq company-minimum-prefix-length 1)
 
+;; ----------
+;; flycheck popup
+(require 'flycheck-popup-tip)
+(add-hook 'flycheck-mode-hook 'flycheck-popup-tip-mode)
+
+;; ================================
+;; Python
+;; crazy simple
+(add-hook 'python-mode-hook #'lsp)
+
+;; ================================
+;; Golang
+;; seen at: https://geeksocket.in/posts/emacs-lsp-go/
 (require 'go-mode)
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/go/bin"))
-
-(require 'company)
 
 ;; Go - lsp-mode
 ;; Set up before-save hooks to format buffer and add/delete imports.
@@ -209,13 +223,8 @@ Intended as a predicate for `confirm-kill-emacs'."
 	    (when (derived-mode-p 'go-mode)
 	      (setq my/flycheck-local-cache '((lsp . ((next-checkers . (warning go-revive)))))))))
 
-;; Company mode
-(setq company-idle-delay 0)
-(setq company-minimum-prefix-length 1)
-
-;; ----------
-;; Python
-(add-hook 'python-mode-hook #'lsp)
+;; ================================
+;; others
 
 ;; ----------
 ;; markdown
@@ -236,36 +245,19 @@ Intended as a predicate for `confirm-kill-emacs'."
           (lambda ()
             (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
 
-;; ================================
-;; helpful things
+;; ----------
+;; systemd
+(require 'systemd)
 
-;; --- k8s manifests ---
-;; flymake k8s manifests
+;; ----------
+;; json
+(require 'flymake-json)
+(require 'json-mode)
+(global-set-key (kbd "C-c j v") 'flymake-json-load)
 
-(require 'flycheck)
-(setq fm-kc-wrapper (expand-file-name "~/.emacs.d/lib/kc-wrapper"))
-(flycheck-define-checker k8s
-  "A k8s manifest syntax checker using kubeconform"
-  :command ("~/.emacs.d/lib/kc-wrapper")
-  :standard-input t
-  :error-patterns (
-		   (error line-start "line: " line " stdin - " (message) line-end)
-		   (error line-start "stdin - failed validation: error unmarshalling resource: error converting YAML to JSON: yaml: line " line ": " (message) line-end))
-  :modes yaml-mode)
-(add-to-list 'flycheck-checkers 'k8s)
-
-;; k8s company yasnippet
-(add-hook 'yaml-mode-hook
-          '(lambda ()
-             (set (make-local-variable 'company-backends)
-                  '(company-yasnippet))))
-
-(defun fm-k8s-mode()
-  (interactive)
-  (set (make-local-variable 'company-backends)
-       '(company-yasnippet))
-  (company-mode)
-  (flycheck-mode ))
+;;  ========================
+;; || other helpfull modes ||
+;;  ========================
 
 ;; ----------
 ;; pass
@@ -278,15 +270,7 @@ Intended as a predicate for `confirm-kill-emacs'."
 (setq rfc-mode-directory (expand-file-name "~/.rfc/"))
 
 ;; ----------
-;; json support
-(require 'flymake-json)
-(require 'json-mode)
-(global-set-key (kbd "C-c j v") 'flymake-json-load)
-
-
-;; ----------
 ;; git-commit
-
 (require 'git-commit)
 (setq git-commit-style-convention-checks
       '(non-empty-second-line
@@ -361,8 +345,6 @@ conventions are checked."
 
 ;; ----------
 ;; flyspell
-
-
 (require 'flyspell)
 (setq ispell-dictionary "english")
 (add-hook 'text-mode-hook 'flyspell-mode)
@@ -372,7 +354,6 @@ conventions are checked."
 		       (ispell-change-dictionary "deutsch")))
 (global-set-key [f4] (lambda () (interactive)
 		       (ispell-change-dictionary "english")))
-
 
 ;; ----------
 ;; which key 
@@ -392,7 +373,6 @@ conventions are checked."
 
 ;; ----------
 ;; let eww open links
-
 (defun my-set-eww-buffer-title ()
   (let* ((title  (plist-get eww-data :title))
          (url    (plist-get eww-data :url))
