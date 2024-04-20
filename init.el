@@ -251,6 +251,35 @@ Intended as a predicate for `confirm-kill-emacs'."
             (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
 
 ;; ----------
+;; flymake k8s manifests
+
+(require 'flycheck)
+(setq fm-kc-wrapper (expand-file-name "~/.emacs.d/lib/kc-wrapper"))
+(flycheck-define-checker k8s
+  "A k8s manifest syntax checker using kubeconform"
+  :command ("~/.emacs.d/lib/kc-wrapper")
+  :standard-input t
+  :error-patterns (
+                  (error line-start "line: " line " stdin - " (message) line-end)
+                  (error line-start "stdin - failed validation: error unmarshalling
+resource: error converting YAML to JSON: yaml: line " line ": " (message) line-end))
+  :modes yaml-mode)
+(add-to-list 'flycheck-checkers 'k8s)
+
+;; k8s company yasnippet
+(add-hook 'yaml-mode-hook
+          '(lambda ()
+             (set (make-local-variable 'company-backends)
+                  '(company-yasnippet))))
+
+(defun fm-k8s-mode()
+  (interactive)
+  (set (make-local-variable 'company-backends)
+       '(company-yasnippet))
+  (company-mode)
+  (flycheck-mode ))
+
+;; ----------
 ;; systemd
 (require 'systemd)
 
