@@ -199,6 +199,11 @@ Intended as a predicate for `confirm-kill-emacs'."
 (add-hook 'go-mode-hook #'lsp-deferred)
 (add-hook 'go-mode-hook #'yas-minor-mode) ;; is this necessary? yasnippet is active anyways
 
+;; add golangci-lint
+(require 'flycheck-golangci-lint)
+(eval-after-load 'flycheck
+  '(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
+
 ;; add revive flycheck
 (flycheck-define-checker go-revive
   "A golang code style checker using the revive."

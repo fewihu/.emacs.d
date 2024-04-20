@@ -1,0 +1,3 @@
+[submodule "flycheck-golangci-lint"]
+	path = flycheck-golangci-lint
+	url = git@github.com:weijiangan/flycheck-golangci-lint.git
