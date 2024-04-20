@@ -32,3 +32,17 @@ refactor
 explain
 autostash
 reverse
+bump
+resort
+introduce
+reformat
+invert
+shorten
+restore
+follow
+revert
+integrate
+feat
+encapsulate
+clean
+build
