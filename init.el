@@ -183,6 +183,11 @@ Intended as a predicate for `confirm-kill-emacs'."
 (add-hook 'python-mode-hook #'lsp)
 
 ;; ================================
+;; shell
+(add-hook 'sh-mode-hook 'flycheck-mode)
+
+
+;; ================================
 ;; Golang
 ;; seen at: https://geeksocket.in/posts/emacs-lsp-go/
 (require 'go-mode)
