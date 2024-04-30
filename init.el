@@ -243,6 +243,9 @@ Intended as a predicate for `confirm-kill-emacs'."
 ;; ----------
 ;; Dockerfile syntax
 (require 'dockerfile-mode)
+(add-to-list 'load-path "~/.emacs.d/flymake-hadolint/")
+(require 'flymake-hadolint)
+(add-hook 'dockerfile-mode-hook #'flymake-hadolint-setup)
 
 ;; ----------
 ;; xml
