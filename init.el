@@ -430,7 +430,6 @@ conventions are checked."
 ;; Org-Mode the initial reason to use Emacs
 
 (global-set-key (kbd "C-x C-a") 'org-agenda)
-(setq org-agenda-files (expand-file-name "~/notes/notes.org" ))
 (setq org-agenda-custom-commands
       '(("w" "Weekly review"
 	 ((agenda ""
