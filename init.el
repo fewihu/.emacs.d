@@ -162,6 +162,16 @@ Intended as a predicate for `confirm-kill-emacs'."
 ;; general settings
 
 ;; ----------
+;; lets give projectile a try
+(require 'projectile)
+(projectile-mode +1)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+(setq projectile-project-search-path '("~/repos"))
+(setq projecttile-generic-command "ripgrep")
+(require 'counsel-projectile)
+(counsel-projectile-mode 1)
+
+;; ----------
 ;; lsp-mode
 (require 'lsp-mode)
 (define-key lsp-mode-map (kbd "M-SPC") lsp-command-map)
