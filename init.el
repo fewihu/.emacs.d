@@ -183,6 +183,7 @@ Intended as a predicate for `confirm-kill-emacs'."
 (require 'lsp-mode)
 (define-key lsp-mode-map (kbd "M-SPC") lsp-command-map)
 
+(require 'lsp-treemacs)
 ;; ----------
 ;; Company mode
 (require 'company)
