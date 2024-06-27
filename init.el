@@ -66,6 +66,11 @@
 (add-hook 'yaml-mode-hook #'highlight-indentation-mode)
 (add-hook 'yaml-mode-hook #'highlight-indentation-mode)
 
+(require 'ansi-color)
+(defun display-ansi-colors ()
+  (interactive)
+  (ansi-color-apply-on-region (point-min) (point-max)))
+
 ;; highlight todos / mark where it is helpful
 (require 'hl-todo)
 (setq hl-todo-keyword-faces
