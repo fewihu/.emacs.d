@@ -95,6 +95,8 @@
     (other-window -1))
 (global-set-key "\C-xp" 'fm-previous-window)
 
+;; binding for ibuffer
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; change "focus" to new split windows
 (global-set-key "\C-x2" (lambda ()
