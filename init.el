@@ -392,6 +392,28 @@ conventions are checked."
 ;; others
 
 ;; ----------
+;; convert unix timestamp to rfc3339 timestamp
+;; https://gist.github.com/digizeph/11a35d7cc29c89b8a2eb65b77ada70b3
+(defun unix-ts-to-str (&optional time zone)
+  "Convert unix timestamp integer to human-readable string in RFC3339 format."
+  (interactive "nTimestamp: ")
+  (setq zone (or zone "UTC"))
+  (setq ts-str (format "%s" (or time (current-word))))
+  (if (numberp (read ts-str))
+      (progn
+        (setq ts-int (string-to-number ts-str))
+        ;; send message to Message buffer
+        ;; copy to kill-ring (clipboard)
+        (setq rfc_str (format-time-string "%Y-%m-%dT%H:%M:%S%z" ts-int zone))
+        (message (format "%d %s ==> %s" ts-int zone rfc_str))
+        (kill-new rfc_str)
+        )
+    (message "not a number")
+    )
+  )
+(define-key global-map "\M-u" 'unix-ts-to-str)
+
+;; ----------
 ;; markdown
 (require 'markdown-mode)
 
