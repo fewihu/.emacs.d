@@ -172,11 +172,142 @@ Intended as a predicate for `confirm-kill-emacs'."
 ;; magit
 (require 'magit)
 ;; ----------
+(require 'dash)
+
+(defmacro pretty-magit (WORD ICON PROPS &optional NO-PROMPT?)
+  "Replace sanitized WORD with ICON, PROPS and by default add to prompts."
+  `(prog1
+     (add-to-list 'pretty-magit-alist
+                  (list (rx bow (group ,WORD (eval (if ,NO-PROMPT? "" ":"))))
+                        ,ICON ',PROPS))
+     (unless ,NO-PROMPT?
+       (add-to-list 'pretty-magit-prompt (concat ,WORD ": ")))))
+
+(setq pretty-magit-alist nil)
+(setq pretty-magit-prompt nil)
+
+(pretty-magit "Merged" ?⛕ (:foreground "slate gray" :height 1.2))
+(pretty-magit "feat" ?➕ (:foreground "green" :height 1.2))
+(pretty-magit "ci" ?⟳ (:foreground "#375E97" :height 1.2))
+(pretty-magit "fix" ?⛑ (:foreground "#FB6542" :height 1.2))
+(pretty-magit "doc" ?🖉 (:foreground "#3F681C" :height 1.2))
+(pretty-magit "chore" ?🛠 (:foreground "#3F681C" :height 1.2))
+
+(defun add-magit-faces ()
+  "Add face properties and compose symbols for buffer from pretty-magit."
+  (interactive)
+  (with-silent-modifications
+    (--each pretty-magit-alist
+      (-let (((rgx icon props) it))
+        (save-excursion
+          (goto-char (point-min))
+          (while (search-forward-regexp rgx nil t)
+            (compose-region
+             (match-beginning 1) (match-end 1) icon)
+            (when props
+              (add-face-text-property
+               (match-beginning 1) (match-end 1) props))))))))
+
+(advice-add 'magit-status :after 'add-magit-faces)
+(advice-add 'magit-refresh-buffer :after 'add-magit-faces)
+
+(setq use-magit-commit-prompt-p nil)
+(defun use-magit-commit-prompt (&rest args)
+  (setq use-magit-commit-prompt-p t))
+
+(defun magit-commit-prompt ()
+  "Magit prompt and insert commit header with faces."
+  (interactive)
+  (when use-magit-commit-prompt-p
+    (setq use-magit-commit-prompt-p nil)
+    (insert (ivy-read "Commit Type " pretty-magit-prompt
+                      :require-match t :sort t :preselect "Add: "))
+    (add-magit-faces)
+    (evil-insert 1)  ; If you use evil
+    ))
+
+(remove-hook 'git-commit-setup-hook 'with-editor-usage-message)
+(add-hook 'git-commit-setup-hook 'magit-commit-prompt)
+(advice-add 'magit-commit :after 'use-magit-commit-prompt)
+
+(setq git-commit-style-convention-checks
+      '(non-empty-second-line
+        overlong-summary-line))
+
+;;seen at https://www.adventuresinwhy.com/post/commit-message-linting/
+;;and found extremly helpful
+
+;;Parallels `git-commit-style-convention-checks',
+;;allowing the user to specify which checks they
+;;wish to enforce.
+(defcustom my-git-commit-style-convention-checks '(summary-starts-with-capital
+                                                   summary-does-not-end-with-period
+                                                   summary-uses-imperative)
+  "List of checks performed by `my-git-commit-check-style-conventions'.
+Valid members are `summary-starts-with-capital',
+`summary-does-not-end-with-period', and
+`summary-uses-imperative'. That function is a member of
+`git-commit-finish-query-functions'."
+  :options '(summary-starts-with-capital
+             summary-does-not-end-with-period
+             summary-uses-imperative)
+  :type '(list :convert-widget custom-hood-convert-widget)
+  :group 'git-commit)
+
+;; Parallels `git-commit-check-style-conventions'
+(defun my-git-commit-check-style-conventions (force)
+  "Check for violations of certain basic style conventions.
+
+For each violation ask the user if she wants to proceed anway.
+Option `my-git-commit-check-style-conventions' controls which
+conventions are checked."
+  (save-excursion
+    (goto-char (point-min))
+    (re-search-forward (git-commit-summary-regexp) nil t)
+    (let ((summary (match-string 1))
+          (first-word))
+      (and (or (not (memq 'summary-starts-with-capital
+                          my-git-commit-style-convention-checks))
+               (let ((case-fold-search nil))
+                 (string-match-p "^[[:upper:]]" summary))
+               (y-or-n-p "Summary line does not start with capital letter.  Commit anyway? "))
+           (or (not (memq 'summary-does-not-end-with-period
+                          my-git-commit-style-convention-checks))
+               (not (string-match-p "[\\.!\\?;,:]$" summary))
+               (y-or-n-p "Summary line ends with punctuation.  Commit anyway? "))
+           (or (not (memq 'summary-uses-imperative
+                          my-git-commit-style-convention-checks))
+               (progn
+                 (string-match "^\\([[:alpha:]]*\\)" summary)
+                 (setq first-word (downcase (match-string 1 summary)))
+                 (car (member first-word (get-imperative-verbs))))
+               (when (y-or-n-p "Summary line should use imperative.  Does it? ")
+                 (when (y-or-n-p (format "Add `%s' to list of imperative verbs?" first-word))
+                   (with-temp-buffer
+                     (insert first-word)
+                     (insert "\n")
+                     (write-region (point-min) (point-max) imperative-verb-file t)))
+                 t))))))
+
+(setq imperative-verb-file "~/.emacs.d/imperative_verbs.txt")
+(defun get-imperative-verbs ()
+  "Return a list of imperative verbs."
+  (let ((file-path imperative-verb-file))
+    (with-temp-buffer
+      (insert-file-contents file-path)
+      (split-string (buffer-string) "\n" t)
+      )))
+
+(add-to-list 'git-commit-finish-query-functions
+               #'my-git-commit-check-style-conventions)
+
+
+;; ----------
 ;; lets give projectile a try
 (require 'projectile)
 (projectile-mode +1)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-(setq projectile-project-search-path '("~/repos"))
+(setq projectile-project-search-path '("~/repos" "~/stackit/repos" "~/util-repos" "~/bf" "~/.config"))
 (setq projecttile-generic-command "ripgrep")
 (require 'counsel-projectile)
 (counsel-projectile-mode 1)
@@ -334,80 +465,6 @@ resource: error converting YAML to JSON: yaml: line " line ": " (message) line-e
 ;; rfc mode
 (require 'rfc-mode)
 (setq rfc-mode-directory (expand-file-name "~/.rfc/"))
-
-;; ----------
-;; git-commit
-(require 'git-commit)
-(setq git-commit-style-convention-checks
-      '(non-empty-second-line
-        overlong-summary-line))
-
-;; seen at https://www.adventuresinwhy.com/post/commit-message-linting/
-;; and found extremly helpful
-
-;; Parallels `git-commit-style-convention-checks',
-;; allowing the user to specify which checks they
-;; wish to enforce.
-(defcustom my-git-commit-style-convention-checks '(summary-starts-with-capital
-                                                   summary-does-not-end-with-period
-                                                   summary-uses-imperative)
-  "List of checks performed by `my-git-commit-check-style-conventions'.
-Valid members are `summary-starts-with-capital',
-`summary-does-not-end-with-period', and
-`summary-uses-imperative'. That function is a member of
-`git-commit-finish-query-functions'."
-  :options '(summary-starts-with-capital
-             summary-does-not-end-with-period
-             summary-uses-imperative)
-  :type '(list :convert-widget custom-hood-convert-widget)
-  :group 'git-commit)
-
-;; Parallels `git-commit-check-style-conventions'
-(defun my-git-commit-check-style-conventions (force)
-  "Check for violations of certain basic style conventions.
-
-For each violation ask the user if she wants to proceed anway.
-Option `my-git-commit-check-style-conventions' controls which
-conventions are checked."
-  (save-excursion
-    (goto-char (point-min))
-    (re-search-forward (git-commit-summary-regexp) nil t)
-    (let ((summary (match-string 1))
-          (first-word))
-      (and (or (not (memq 'summary-starts-with-capital
-                          my-git-commit-style-convention-checks))
-               (let ((case-fold-search nil))
-                 (string-match-p "^[[:upper:]]" summary))
-               (y-or-n-p "Summary line does not start with capital letter.  Commit anyway? "))
-           (or (not (memq 'summary-does-not-end-with-period
-                          my-git-commit-style-convention-checks))
-               (not (string-match-p "[\\.!\\?;,:]$" summary))
-               (y-or-n-p "Summary line ends with punctuation.  Commit anyway? "))
-           (or (not (memq 'summary-uses-imperative
-                          my-git-commit-style-convention-checks))
-               (progn
-                 (string-match "^\\([[:alpha:]]*\\)" summary)
-                 (setq first-word (downcase (match-string 1 summary)))
-                 (car (member first-word (get-imperative-verbs))))
-               (when (y-or-n-p "Summary line should use imperative.  Does it? ")
-                 (when (y-or-n-p (format "Add `%s' to list of imperative verbs?" first-word))
-                   (with-temp-buffer
-                     (insert first-word)
-                     (insert "\n")
-                     (write-region (point-min) (point-max) imperative-verb-file t)))
-                 t))))))
-
-(setq imperative-verb-file "~/.emacs.d/imperative_verbs.txt")
-(defun get-imperative-verbs ()
-  "Return a list of imperative verbs."
-  (let ((file-path imperative-verb-file))
-    (with-temp-buffer
-      (insert-file-contents file-path)
-      (split-string (buffer-string) "\n" t)
-      )))
-
-(add-to-list 'git-commit-finish-query-functions
-               #'my-git-commit-check-style-conventions)
 
 ;; ----------
 ;; flyspell
