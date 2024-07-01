@@ -169,6 +169,9 @@ Intended as a predicate for `confirm-kill-emacs'."
 ;; general settings
 
 ;; ----------
+;; magit
+(require 'magit)
+;; ----------
 ;; lets give projectile a try
 (require 'projectile)
 (projectile-mode +1)
