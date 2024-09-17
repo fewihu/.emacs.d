@@ -395,6 +395,11 @@ conventions are checked."
 ;; others
 
 ;; ----------
+;; pcap-mode to nicely format pcap files (tcpdump/wireshark)
+(add-to-list 'load-path "/home/felixmueller/.emacs.d/pcap-mode")
+(require 'pcap-mode)
+
+;; ----------
 ;; convert unix timestamp to rfc3339 timestamp
 ;; https://gist.github.com/digizeph/11a35d7cc29c89b8a2eb65b77ada70b3
 (defun unix-ts-to-str (&optional time zone)
