@@ -9,7 +9,7 @@ then
     exit 0
 fi
 
-path=$(echo $error | grep -Eo "'(/[[:alnum:]]+)+'"  | head -1 | tr -d "'" | grep -Eo "(/[[:alpha:]][[:alnum:]]+)+" | tr '/' ':')
+path=$(echo $error | grep -Eo "'(/[[:alnum:]]+)+'"  | head -1 | tr -d "'" | grep -Eo "(/[[:alnum:]]+)+" | tr '/' ':')
 echo debug
 echo $path
 
@@ -19,8 +19,18 @@ echo "$input" | tr -d ' ' > rest
 initLength=$(wc -l rest | cut -d ' ' -f-1)
 for i in "${!array[@]}"
 do
-#    echo "sachen: ${array[i]}"
-    cat rest | awk -v pattern=${array[i]} '$0~pattern,0' > rest2
+    re='^[0-9]+$'
+    if ! [[ ${array[i]} =~ $re ]] ; then
+	iter=${array[i]}
+	(( iter=iter+1 ))
+	for (( c=0; c<=$iter; c++ ))
+	do
+	    cat rest | awk -v pattern=- '$0~pattern,0' > rest2
+	    mv rest2 rest
+	done
+    else
+	cat rest | awk -v pattern=${array[i]} '$0~pattern,0' > rest2
+    fi
     mv rest2 rest
 done
 
