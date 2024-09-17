@@ -321,6 +321,7 @@ conventions are checked."
 (define-key lsp-mode-map (kbd "M-SPC") lsp-command-map)
 
 (require 'lsp-treemacs)
+
 ;; ----------
 ;; Company mode
 (require 'company)
@@ -458,8 +459,7 @@ conventions are checked."
 (add-hook 'yaml-mode-hook #'lsp)
 
 ;; ----------
-;; flymake k8s manifests
-
+;; flycheck k8s manifests
 (require 'flycheck)
 (setq fm-kc-wrapper (expand-file-name "~/.emacs.d/lib/kc-wrapper"))
 (flycheck-define-checker k8s
