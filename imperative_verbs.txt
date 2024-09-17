@@ -55,3 +55,9 @@ proxy
 get
 give
 bind
+require
+wip
+deploy
+cleanup
+shift
+formatting
