@@ -44,6 +44,7 @@
 
 
 ;; To have, or not to have line numbers, that is the question
+(setq display-line-numbers-type 'relative)
 (dolist (mode '(text-mode-hook
                 prog-mode-hook
                 conf-mode-hook))
