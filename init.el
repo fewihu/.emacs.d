@@ -443,6 +443,20 @@ conventions are checked."
           (lambda ()
             (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
 
+(defun fm-toggle-fold ()
+  "toggle non trivial folding"
+  (interactive)
+  (let ((col 1))
+    (save-excursion
+     (back-to-indentation)
+     (setq col (+ 1 (current-column)))
+     (set-selective-display
+     (if selective-display nil (or col 1))))))
+(define-key yaml-mode-map (kbd "C-<tab>") 'fm-toggle-fold)
+
+(require 'yaml-imenu)
+(add-hook 'yaml-mode-hook #'lsp)
+
 ;; ----------
 ;; flymake k8s manifests
 
@@ -471,6 +485,10 @@ resource: error converting YAML to JSON: yaml: line " line ": " (message) line-e
        '(company-yasnippet))
   (company-mode)
   (flycheck-mode ))
+
+(with-eval-after-load 'flycheck
+  (flycheck-add-mode 'k8s 'yaml)
+  (flycheck-add-mode 'yaml-yamllint 'yaml))
 
 ;; ----------
 ;; systemd
