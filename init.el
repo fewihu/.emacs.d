@@ -675,11 +675,11 @@ data (e.g. <2022-01-01>) and :tend for the last date (e.g. <now>)."
 
 ;; Don't ask for confirmation to execute snippet code
 ;; Can we do that just for plantuml? Could be deadly else
-(setq org-confirm-babel-evaluate nil
-		plantuml-default-exec-mode 'jar
-		plantuml-output-type       'png
-		org-plantuml-jar-path
-		(expand-file-name "~/.emacs.d/libs/plantuml-1.2023.9.jar" ))
+(setq
+ org-confirm-babel-evaluate nil
+ plantuml-default-exec-mode 'executable
+ plantuml-output-type       'png
+ org-plantuml-jar-path (expand-file-name "~/.emacs.d/lib/plantuml.jar" ))
 
 
 
