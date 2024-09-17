@@ -89,6 +89,9 @@
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
 
+(require 'helm)
+(global-set-key (kbd "C-j") 'helm-imenu)
+
 ;; switch to previous window (cd - like behaviour)
 ;; https://emacs.stackexchange.com/questions/43888/move-to-other-window-backwards
 (defun fm-previous-window ()
