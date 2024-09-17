@@ -6,3 +6,4 @@ transient/
 url/
 .cache/
 projectile-bookmarks.eld
+lib/plantuml.jar
