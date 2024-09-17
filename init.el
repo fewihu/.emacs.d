@@ -184,18 +184,18 @@ Intended as a predicate for `confirm-kill-emacs'."
      (add-to-list 'pretty-magit-alist
                   (list (rx bow (group ,WORD (eval (if ,NO-PROMPT? "" ":"))))
                         ,ICON ',PROPS))
-     (unless ,NO-PROMPT?
-       (add-to-list 'pretty-magit-prompt (concat ,WORD ": ")))))
+       (add-to-list 'pretty-magit-prompt ,WORD)))
 
 (setq pretty-magit-alist nil)
 (setq pretty-magit-prompt nil)
 
 (pretty-magit "Merged" ?⛕ (:foreground "slate gray" :height 1.2))
-(pretty-magit "feat" ?➕ (:foreground "green" :height 1.2))
-(pretty-magit "ci" ?⟳ (:foreground "#375E97" :height 1.2))
-(pretty-magit "fix" ?⛑ (:foreground "#FB6542" :height 1.2))
-(pretty-magit "doc" ?🖉 (:foreground "#3F681C" :height 1.2))
-(pretty-magit "chore" ?🛠 (:foreground "#3F681C" :height 1.2))
+(pretty-magit "feat:" ?➕ (:foreground "green" :height 1.2))
+(pretty-magit "ci:" ?⟳ (:foreground "#375E97" :height 1.2))
+(pretty-magit "fix:" ?⛑ (:foreground "#FB6542" :height 1.2))
+(pretty-magit "doc:" ?🖉 (:foreground "#3F681C" :height 1.2))
+(pretty-magit "chore:" ?🛠 (:foreground "#3F681C" :height 1.2))
+(pretty-magit "" ?◯ (:foreground "black" :height 1.2))
 
 (defun add-magit-faces ()
   "Add face properties and compose symbols for buffer from pretty-magit."
@@ -225,9 +225,8 @@ Intended as a predicate for `confirm-kill-emacs'."
   (when use-magit-commit-prompt-p
     (setq use-magit-commit-prompt-p nil)
     (insert (ivy-read "Commit Type " pretty-magit-prompt
-                      :require-match t :sort t :preselect "Add: "))
+                      :require-match nil :sort t :preselect "Add: "))
     (add-magit-faces)
-    (evil-insert 1)  ; If you use evil
     ))
 
 (remove-hook 'git-commit-setup-hook 'with-editor-usage-message)
