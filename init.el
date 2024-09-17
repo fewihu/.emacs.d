@@ -340,7 +340,7 @@ conventions are checked."
 ;; ================================
 ;; shell
 (add-hook 'sh-mode-hook 'flycheck-mode)
-
+(add-hook 'sh-mode-hook #'lsp)
 
 ;; ================================
 ;; Golang
