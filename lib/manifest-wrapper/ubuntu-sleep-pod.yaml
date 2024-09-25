@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hahaha
+  labels:
+    app: ubuntu
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ubuntu
+      ding: bums
+  template:
+    spec:
+      containers:
+        - name: ubuntu
+          image: ubuntu
+          command: ["sleep", "123456"]
+        - foo: bar
+    metadata:
+      labels:
+        app: ubuntu
+---
+spec: dings-hier
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubuntu-deployment
+  labels:
+    app: ubuntu
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ubuntu
+      ding: bums
+  template:
+    spec:
+      containers:
+        - name: ubuntu
+          image: ubuntu
+          command: ["sleep", "123456"]
+        - foo: bar
+    metadata:
+      labels:
+        app: ubuntu
+...

@@ -7,3 +7,4 @@ url/
 .cache/
 projectile-bookmarks.eld
 lib/plantuml.jar
+lib/manifest-wrapper/manifest-wrapper
