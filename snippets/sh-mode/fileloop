@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: fileloop
+# key: fileloop
+# --
+while read line; do
+    $0
+done < "$"
