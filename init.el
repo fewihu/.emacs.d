@@ -545,7 +545,7 @@ resource: error converting YAML to JSON: yaml: line " line ": " (message) line-e
 		       (ispell-change-dictionary "english")))
 
 ;; ----------
-;; which key 
+;; which key
 (require 'which-key)
 (which-key-mode)
 
@@ -647,7 +647,7 @@ data (e.g. <2022-01-01>) and :tend for the last date (e.g. <now>)."
 ;; basic settings
 (setq org-ellipsis              "⤵"
       org-hide-leading-stars    t
-      org-hide-emphasis-markers 1    
+      org-hide-emphasis-markers 1
       org-startup-folded        t
       org-startup-truncated     nil
       org-fontify-done-headline t
@@ -664,7 +664,7 @@ data (e.g. <2022-01-01>) and :tend for the last date (e.g. <now>)."
 
 ;; ----------
 ;; keywords
-(setq org-todo-keywords 
+(setq org-todo-keywords
 		'((sequence "ISSUE(i)" "QUEST(q)" "INFO(a)")
 		  (sequence "TODO(t)"  "CONT(c)" "DONE(d)" )
 		  (sequence "IDEA(n)"  "DISM(m)" "WAIT(w)")))
@@ -675,7 +675,7 @@ data (e.g. <2022-01-01>) and :tend for the last date (e.g. <now>)."
 		  ("WAIT"  :foreground "#ffc300" :background "#003060")
 		  ("DONE"  :foreground "#daf7a6" :background "#003060")
 		  ("DISM"  :foreground "#ceffff" :background "#003060")
-		  
+
 		  ("ISSUE" :foreground "#ff7033" :background "#401020")
 		  ("QUEST" :foreground "#ff7033" :background "#401020")
 		  ("IDEA"  :foreground "#daf7a6" :background "#401020")
