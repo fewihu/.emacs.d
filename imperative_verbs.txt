@@ -61,3 +61,13 @@ deploy
 cleanup
 shift
 formatting
+outsource
+rm
+mv
+template
+compare
+rename
+configure
+schedule
+improve
+enhance
