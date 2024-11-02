@@ -81,6 +81,10 @@
 ;; ================================
 ;; feel
 
+;; a classic
+(setq-default show-trailing-whitespace t)
+(add-hook 'before-save-hook
+          'delete-trailing-whitespace)
 (require 'company)
 ;; sensefull key-bindings to size windows
 ;; https://www.emacswiki.org/emacs/WindowResize
