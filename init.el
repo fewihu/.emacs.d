@@ -85,6 +85,10 @@
 (setq-default show-trailing-whitespace t)
 (add-hook 'before-save-hook
           'delete-trailing-whitespace)
+
+;; subword mode every time, all the time
+(add-hook 'c-mode-common-hook
+          (lambda () (subword-mode 1)))
 (require 'company)
 ;; sensefull key-bindings to size windows
 ;; https://www.emacswiki.org/emacs/WindowResize
