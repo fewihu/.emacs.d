@@ -89,6 +89,16 @@
 ;; subword mode every time, all the time
 (add-hook 'c-mode-common-hook
           (lambda () (subword-mode 1)))
+
+;; dired ranger
+(add-to-list 'load-path "/home/felixmueller/.emacs.d/lib/dired-hacks/")
+(require 'dired-ranger)
+(eval-after-load "dired"
+  '(progn
+     (define-key dired-mode-map (kbd "C-x w") 'dired-ranger-copy)
+     (define-key dired-mode-map (kbd "C-x x") 'dired-ranger-move)
+     (define-key dired-mode-map (kbd "C-x y") 'dired-ranger-paste)))
+
 (require 'company)
 ;; sensefull key-bindings to size windows
 ;; https://www.emacswiki.org/emacs/WindowResize
